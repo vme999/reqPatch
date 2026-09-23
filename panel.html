@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>reqPatch</title>
+  <link rel="stylesheet" href="panel.css">
+  <style>button:hover{border-color:#5f6368}button.clicked,button:active{color:var(--green)}.search-box{display:flex;gap:6px}.search-box input{min-width:0}.clear-icon{display:flex;flex:none;align-items:center;justify-content:center;width:30px;height:30px;padding:5px;color:var(--muted)}.clear-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}.clear-icon:hover{color:var(--red)}</style>
+</head>
+<body>
+  <header>
+    <div><strong>reqPatch</strong><span id="connection">未连接</span></div>
+    <div class="toolbar"><button id="add-rule">新建规则</button></div>
+  </header>
+  <main>
+    <section class="requests">
+      <div class="section-tabs"><button id="requests-tab" class="active">HTTP fetch / XHR <span id="count">0</span></button><button id="rules-tab">当前 Tab 规则 <span id="rule-count">0</span></button></div>
+      <div id="requests-view"><div class="search-box"><button id="clear" class="clear-icon" type="button" title="清空已捕获的请求" aria-label="清空已捕获的请求"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12m-9 0V5h6v2m-7 0 1 13h6l1-13M10 10v6m4-6v6"></path></svg></button><input id="url-search" type="search" placeholder="模糊搜索 URL" autocomplete="off"></div><div id="request-list" class="empty">等待请求…</div></div>
+      <div id="rules-view" hidden><div id="rule-list" class="empty">暂无规则</div></div>
+    </section>
+    <div id="splitter" class="splitter" role="separator" aria-label="调整左右面板宽度" tabindex="0"></div>
+    <section class="details"><div id="empty-detail" class="empty">选择一个请求查看详情</div><div id="detail" hidden></div></section>
+  </main>
+  <dialog id="rule-dialog">
+    <form>
+      <h2>JSON 修改规则</h2>
+      <label>URL 匹配
+        <input id="rule-url" required placeholder="https://api.example.com/users">
+        <small>按 URL 前缀匹配；例如填写 /users 可匹配 /users 及其后续参数。</small>
+      </label>
+      <label>HTTP Method
+        <select id="rule-method"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select>
+      </label>
+      <label>URL 查询参数替换
+        <small>可选。留空表示忽略 Query 参数；填写后会覆盖请求中的同名参数。</small>
+        <textarea id="request-query" placeholder='{"page":2}'></textarea>
+      </label>
+      <label>Request Payload 操作
+        <small>每行表示一个操作</small>
+        <textarea id="request-ops" placeholder="add $.debug true
+replace $.user.name &quot;Alice&quot;
+remove $.user.password"></textarea>
+      </label>
+      <label>Response Body 操作
+        <small>每行表示一个操作</small>
+        <textarea id="response-ops" placeholder="add $.debug true
+replace $.data[0].name &quot;Bob&quot;
+remove $.data[0].password"></textarea>
+      </label>
+      <menu><button type="button" id="cancel-rule">取消</button><button type="submit" id="save-rule">保存规则</button></menu>
+    </form>
+  </dialog>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>

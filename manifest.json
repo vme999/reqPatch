@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "reqPatch",
+  "version": "0.1.0",
+  "description": "Capture and temporarily patch JSON fetch/XHR requests from DevTools.",
+  "minimum_chrome_version": "96",
+  "permissions": ["debugger", "storage"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "devtools_page": "devtools.html",
+  "background": { "service_worker": "background.js" },
+  "action": { "default_title": "reqPatch" }
+}

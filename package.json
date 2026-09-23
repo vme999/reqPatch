@@ -1,0 +1,9 @@
+{
+  "name": "reqpatch",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check panel.js && node --check devtools.js && node --check background.js && node --check lib/json.js",
+    "test": "node --test test/*.test.js"
+  }
+}
